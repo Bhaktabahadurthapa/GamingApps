@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gamingapps
+  labels:
+    app: gamingapps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gamingapps
+  template:
+    metadata:
+      labels:
+        app: sgamingapps
+    spec:
+      containers:
+      - name: gamingapps
+        image: lishan2023/replaceImageTag
+        ports:
+        - containerPort: 8080
