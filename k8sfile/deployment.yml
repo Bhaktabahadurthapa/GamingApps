@@ -16,6 +16,19 @@ spec:
     spec:
       containers:
       - name: gamingapps
-        image: lishan2023/replaceImageTag
+        image: lishan2023/gamingapps:replaceImageTag
         ports:
         - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gamingapps-service
+spec:
+  selector:
+    app: gamingapps
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
