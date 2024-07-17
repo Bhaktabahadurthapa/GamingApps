@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: sgamingapps
+        app: gamingapps
     spec:
       containers:
       - name: gamingapps
