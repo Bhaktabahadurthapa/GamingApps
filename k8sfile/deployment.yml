@@ -16,7 +16,6 @@ spec:
     spec:
       containers:
       - name: gamingapps
-        image: lishan2023/gamingapps:21
+        image: lishan2023/gamingapps:replaceImageTag
         ports:
         - containerPort: 8080
-
