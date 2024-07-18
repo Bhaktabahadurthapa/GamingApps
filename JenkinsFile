@@ -71,12 +71,5 @@ pipeline {
             }
         }
     }
-    stage ('Cleanup Artifacts') {
-           steps {
-               script {
-                    sh "lishan2023/gamingapps:${BUILD_NUMBER}"
-               }
-          }
-       }
   }
 }
