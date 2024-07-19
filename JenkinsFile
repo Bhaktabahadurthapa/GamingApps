@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     // Run Trivy image scan
-                    sh 'trivy image --format table lishan2023/gamingapps:${BUILD_NUMBER}'
+                    sh 'trivy image --format table lishan2023/gamingapps:37'
                 }
             }
         }
