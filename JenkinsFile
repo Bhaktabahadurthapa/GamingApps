@@ -30,10 +30,15 @@ pipeline {
       }
     }
     stage('Quality Gates') {
-      steps {
-        timeout(time: 1, unit: 'MINUTES') {
-          waitForQualityGate abortPipeline: true
-        }
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    script {
+                        def qualityGate = waitForQualityGate()
+                        if (qualityGate.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+                        }
+                  }
+          }
       }
     }
     stage('Build and Push Docker Image') {
