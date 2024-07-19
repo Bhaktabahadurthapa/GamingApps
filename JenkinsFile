@@ -5,6 +5,9 @@ pipeline {
       args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
   }
+  environment {
+    DOCKER_IMAGE = "lishan2023/gamingapps:${BUILD_NUMBER}"
+  }
   stages {
     stage('Checkout') {
       steps {
@@ -49,7 +52,7 @@ pipeline {
             steps {
                 script {
                     // Run Trivy image scan
-                    sh 'trivy image --format table lishan2023/gamingapps:37'
+                    sh 'trivy image --format table lishan2023/gamingapps:${BUILD_NUMBER}'
                 }
             }
         }
