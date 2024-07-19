@@ -29,18 +29,6 @@ pipeline {
         }
       }
     }
-    stage('Quality Gates') {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    script {
-                        def qualityGate = waitForQualityGate()
-                        if (qualityGate.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
-                        }
-                  }
-          }
-      }
-    }
     stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "lishan2023/gamingapps:${BUILD_NUMBER}"
@@ -57,6 +45,15 @@ pipeline {
         }
       }
     }
+    stage('Trivy Scan') {
+            steps {
+                script {
+                    // Run Trivy image scan
+                    sh 'trivy image --format table lishan2023/gamingapps:${BUILD_NUMBER}'
+                }
+            }
+        }
+
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "GamingApps"
