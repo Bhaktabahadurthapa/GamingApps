@@ -29,6 +29,13 @@ pipeline {
         }
       }
     }
+    stage('Quality Gates') {
+      steps {
+        timeout( time: 1, unit: "MINUTES"){
+          waitForQualityGate abortPipeline: false
+        }
+      }
+    }
     stage('Build and Push Docker Image') {
       environment {
         DOCKER_IMAGE = "lishan2023/gamingapps:${BUILD_NUMBER}"
