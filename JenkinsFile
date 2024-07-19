@@ -48,6 +48,22 @@ pipeline {
         }
       }
     }
+    stage('Install Trivy') {
+      steps {
+        script {
+          // Check if Trivy is installed
+          def trivyInstalled = sh(script: 'command -v trivy', returnStatus: true) == 0
+
+          // If Trivy is not installed, install it
+          if (!trivyInstalled) {
+            sh '''
+              apt-get update && apt-get install -y wget
+              wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+            '''
+          }
+        }
+      }
+    }
     stage('Trivy Scan') {
             steps {
                 script {
